@@ -1,4 +1,30 @@
-## 0.4.2 (unreleased)
+## 0.6.0 (2021-03-25)
+
+- Updated LibTorch to 1.8.0
+- Fixed tensor indexing with endless ranges that exclude end
+- Removed support for Ruby 2.5
+
+## 0.5.3 (2021-01-14)
+
+- Added `manual_seed` and `manual_seed_all` for CUDA
+- Improved saving and loading models
+- Fixed error with tensor indexing with beginless ranges
+
+## 0.5.2 (2020-10-29)
+
+- Fixed `undefined symbol` error with CUDA
+
+## 0.5.1 (2020-10-28)
+
+- Fixed error with tensor classes and no arguments
+- Fixed error with `stft` and `clamp` methods
+
+## 0.5.0 (2020-10-28)
+
+- Updated LibTorch to 1.7.0
+- Removed deprecated overload for `addcmul!` and `addcdiv!`
+
+## 0.4.2 (2020-10-27)
 
 - Fixed errors with optimizer options
 

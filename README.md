@@ -8,7 +8,7 @@ Check out:
 - [TorchText](https://github.com/ankane/torchtext) for text and NLP tasks
 - [TorchAudio](https://github.com/ankane/torchaudio) for audio tasks
 
-[![Build Status](https://travis-ci.org/ankane/torch.rb.svg?branch=master)](https://travis-ci.org/ankane/torch.rb)
+[![Build Status](https://github.com/ankane/torch.rb/workflows/build/badge.svg?branch=master)](https://github.com/ankane/torch.rb/actions)
 
 ## Installation
 
@@ -30,7 +30,7 @@ It can take a few minutes to compile the extension.
 
 Deep learning is significantly faster with a GPU. If you don’t have an NVIDIA GPU, we recommend using a cloud service. [Paperspace](https://www.paperspace.com/) has a great free plan.
 
-We’ve put together a [Docker image](https://github.com/ankane/ml-stack) to make it easy to get started. On Paperspace, create a notebook with a custom container. Set the container name to:
+We’ve put together a [Docker image](https://github.com/ankane/ml-stack) to make it easy to get started. On Paperspace, create a notebook with a custom container. Under advanced options, set the container name to:
 
 ```text
 ankane/ml-stack:torch-gpu
@@ -319,6 +319,13 @@ net.load_state_dict(Torch.load("net.pth"))
 net.eval
 ```
 
+When saving a model in Python to load in Ruby, convert parameters to tensors (due to outstanding bugs in LibTorch)
+
+```python
+state_dict = {k: v.data if isinstance(v, torch.nn.Parameter) else v for k, v in state_dict.items()}
+torch.save(state_dict, "net.pth")
+```
+
 ### Tensor Creation
 
 Here’s a list of functions to create tensors (descriptions from the [C++ docs](https://pytorch.org/cppdocs/notes/tensor_creation.html)):
@@ -403,6 +410,7 @@ Here are a few full examples:
 - [Collaborative filtering with MovieLens](examples/movielens)
 - [Sequence models and word embeddings](examples/nlp)
 - [Generative adversarial networks](examples/gan)
+- [Transfer learning](examples/transfer-learning)
 
 ## LibTorch Installation
 
@@ -416,7 +424,9 @@ Here’s the list of compatible versions.
 
 Torch.rb | LibTorch
 --- | ---
-0.3.0+ | 1.6.0
+0.6.0+ | 1.8.0+
+0.5.0-0.5.3 | 1.7.0-1.7.1
+0.3.0-0.4.2 | 1.6.0
 0.2.0-0.2.7 | 1.5.0-1.5.1
 0.1.8 | 1.4.0
 0.1.0-0.1.7 | 1.3.1
